@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <title>Employee Onboarding</title>
+</head>
+<body>
+
+<header title="Company Header">
+    <h1>UpGrade</h1>
+    <p>Welcome to the Employee Onboarding Portal</p>
+</header>
+
+<section title="Employee Details Section">
+    <h2>Employee Information</h2>
+
+    <table border="1">
+        <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Joining Date</th>
+        </tr>
+        <tr>
+            <td>EMP101</td>
+            <td>Ankit Kumar</td>
+            <td>Software Development</td>
+            <td>16-Feb-2026</td>
+        </tr>
+    </table>
+</section>
+
+<article title="Company Policies">
+    <h2>Company Policies</h2>
+    <ol>
+        <li>Working hours: 9 AM – 6 PM</li>
+        <li>Leave policy as per company rules</li>
+        <li>Maintain professional code of conduct</li>
+    </ol>
+
+    <h2>Facilities Provided</h2>
+    <ul>
+        <li>Laptop</li>
+        <li>Internet Access</li>
+        <li>Training Materials</li>
+    </ul>
+</article>
+
+<footer title="Contact Information">
+    <p>Contact HR: hr@UpGrade.com</p>
+</footer>
+
+</body>
+</html>
