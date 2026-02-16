@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Information Technology Department - XYZ College</title>
+</head>
+<body>
+    
+<header title="Department Header">
+    <h1>I T Department</h1>
+    <h2>XYZ College of Engineering</h2>
+</header>
+
+<section title="Faculty Details Section">
+    <h2>Faculty Details</h2>
+
+    <table border="1" title="Faculty Information Table">
+        <tr>
+            <th>Faculty Name</th>
+            <th>Designation</th>
+            <th>Subject Handled</th>
+        </tr>
+        <tr>
+            <td>Faculty 1</td>
+            <td>Professor</td>
+            <td>Data Structures</td>
+        </tr>
+        <tr>
+            <td>Faculty 2</td>
+            <td>Assistant Professor</td>
+            <td>Database Management</td>
+        </tr>
+        <tr>
+            <td>Faculty 3</td>
+            <td>Lecturer</td>
+            <td>Web Technologies</td>
+        </tr>
+    </table>
+</section>
+
+<section title="Subjects Offered Section">
+    <h2>Subjects Offered</h2>
+
+    <ul title="List of Subjects">
+        <li>Data Structures</li>
+        <li>Database Management Systems</li>
+        <li>Operating Systems</li>
+        <li>Computer Networks</li>
+        <li>Web Technologies</li>
+    </ul>
+</section>
+
+<section title="Weekly Timetable Section">
+    <h2>Weekly Timetable</h2>
+
+    <table border="1" title="Timetable Table">
+        <tr>
+            <th>Day</th>
+            <th>Subject</th>
+            <th>Time Slot</th>
+        </tr>
+        <tr>
+            <td>Monday</td>
+            <td>Data Structures</td>
+            <td>10:00 AM – 11:00 AM</td>
+        </tr>
+        <tr>
+            <td>Tuesday</td>
+            <td>DBMS</td>
+            <td>11:00 AM – 12:00 PM</td>
+        </tr>
+        <tr>
+            <td>Wednesday</td>
+            <td>Operating Systems</td>
+            <td>9:00 AM – 10:00 AM</td>
+        </tr>
+    </table>
+</section>
+
+<footer title="Contact Information">
+    <p>XYZ College of Engineering</p>
+    <p>123 Knowledge Park, Lucknow, India</p>
+    <p>Email: info@xyzcollege.edu | Phone: +91-98xxxxxxxx</p>
+</footer>
+
+</body>
+</html>
