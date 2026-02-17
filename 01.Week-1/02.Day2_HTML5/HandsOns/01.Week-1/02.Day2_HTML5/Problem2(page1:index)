@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Coaching Institute</title>
+</head>
+<body>
+
+<header>
+    <h1>ABC Coaching Institute</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a> |
+    <a href="courses.html">Courses</a> |
+    <a href="contact.html">Contact</a>
+</nav>
+
+<hr>
+
+<section>
+    <h2>Welcome to Our Institute</h2>
+    <p>We provide quality education and professional guidance.</p>
+
+    <!-- Internal Anchor Link -->
+    <p><a href="#about">Go to About Section</a></p>
+</section>
+
+<section id="about">
+    <h2>About Us</h2>
+    <p>Our institute offers various professional and technical courses.</p>
+</section>
+
+<footer>
+    <p>
+        Follow us on 
+        <a href="https://twitter.com" target="_blank">Twitter</a>
+    </p>
+</footer>
+
+</body>
+</html>
