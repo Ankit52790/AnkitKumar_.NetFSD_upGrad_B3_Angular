@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Course Enrollment</title>
+</head>
+<body>
+
+<h1>Course Enrollment</h1>
+
+<form>
+
+<label>Email:</label><br>
+<input type="email" required><br><br>
+
+<label>Course:</label><br>
+<input list="courses" required>
+<datalist id="courses">
+    <option value="HTML">
+    <option value="CSS">
+    <option value="JavaScript">
+</datalist><br><br>
+
+<label>Skill Level:</label><br>
+<meter min="0" max="100" value="60"></meter><br><br>
+
+<label>Progress:</label><br>
+<progress value="50" max="100"></progress><br><br>
+
+<label>Experience (Years):</label><br>
+<input type="number" min="0" max="10"><br><br>
+
+<label>Learning Speed:</label><br>
+<input type="range" min="1" max="10"><br><br>
+
+<input type="submit">
+
+</form>
+
+</body>
+</html>
