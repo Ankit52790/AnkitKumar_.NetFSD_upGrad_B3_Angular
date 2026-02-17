@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HTML Course</title>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a> |
+    <a href="courses.html">Courses</a>
+</nav>
+
+<p>
+    <a href="index.html">Home</a> >
+    <a href="courses.html">Courses</a> >
+    <a href="webdev.html">Web Development</a> >
+    HTML
+</p>
+
+<h1>HTML Course</h1>
+<p>Learn HTML from basics.</p>
+
+</body>
+</html>
