@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Features</title>
+
+    <!-- Linking External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section class="feature-section">
+        <h2>Product Feature List Section </h2>
+
+        <ul>
+            <li>Fast Performance</li>
+            <li>User-Friendly Interface</li>
+            <li>Secure Data Protection</li>
+            <li>Cloud Backup Support</li>
+            <li>24/7 Customer Support</li>
+        </ul>
+    </section>
+
+</body>
+</html>
+
+
+
+******************************css******************************
+
+/* Element Selector */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #f4f6f8;
+    margin: 40px;
+}
+
+/* Class Selector */
+.feature-section {
+    max-width: 500px;
+    margin: auto;
+}
+
+/* Descendant Selector */
+.feature-section h2 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.feature-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.feature-section ul li {
+    background-color: #ffffff;
+    color: #444444;
+    border: 2px solid #007bff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    
+}
+
+/* Hover Effect */
+.feature-section ul li:hover {
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+}
