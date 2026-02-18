@@ -1,0 +1,105 @@
+*****************Index.html*****************************
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Styled Webpage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Welcome to My Website</h1>
+</header>
+
+<section class="content-section">
+    <h2>About Us</h2>
+    <p>This is a sample paragraph to demonstrate CSS styling.</p>
+</section>
+
+<div class="box-demo">
+    This div demonstrates margin and padding.
+</div>
+
+<section>
+    <h2>Registration Form</h2>
+
+    <form>
+        <label>Name:</label>
+        <input type="text" placeholder="Enter your name" required>
+
+        <label>Email:</label>
+        <input type="email" placeholder="Enter your email" required>
+
+        <label>Password:</label>
+        <input type="password" required>
+
+        <input type="submit" value="Register">
+    </form>
+</section>
+
+</body>
+</html>
+
+
+
+***************Style.css*************************
+/* Universal Selector */
+* {
+    font-family: Arial, sans-serif;
+}
+
+/* Element Selector */
+h1 {
+    color: darkblue;
+    text-align: center;
+}
+
+/* Class Selector */
+.content-section {
+    background-color: lightgray;
+    border: 2px solid black;
+    padding: 15px;
+}
+
+/* Paragraph Styling */
+p {
+    font-size: 18px;
+    color: darkgreen;
+    line-height: 1.6;
+}
+
+/* Box Model Demonstration */
+.box-demo {
+    background-color: lightblue;
+    border: 3px solid blue;
+    margin: 20px;
+    padding: 30px;
+}
+
+/* Form Styling */
+form {
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px solid gray;
+    background-color: #f9f9f9;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    display: block;
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 200px;
+}
+
+input[type="submit"] {
+    background-color: darkblue;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+}
+
