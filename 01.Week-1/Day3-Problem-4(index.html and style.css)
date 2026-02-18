@@ -1,0 +1,135 @@
+***********************HTML*******************************
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Responsive Blog Layout</title>
+
+    <!-- Linking External CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>My Tech Blog</h1>
+    <p>Latest articles and updates</p>
+</header>
+
+<main>
+    <div class="blog-card">
+        <h2>Understanding HTML5</h2>
+        <p>
+            Learn the fundamentals of HTML5 and how semantic elements improve
+            structure and accessibility.
+        </p>
+        <button>Read More</button>
+    </div>
+
+    <div class="blog-card">
+        <h2>CSS Flexbox Made Easy</h2>
+        <p>
+            A beginner-friendly guide to building responsive layouts using
+            CSS Flexbox.
+        </p>
+        <button>Read More</button>
+    </div>
+
+    <div class="blog-card">
+        <h2>Responsive Design Basics</h2>
+        <p>
+            Understand how media queries help websites adapt to different
+            screen sizes.
+        </p>
+        <button>Read More</button>
+    </div>
+</main>
+
+</body>
+</html>
+
+********************************css********************
+
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+}
+
+/* Header */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+/* Blog Container */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+/* Blog Card */
+.blog-card {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    /* Box Model */
+    padding: 15px;
+
+    /* Flexible width */
+    flex: 1 1 30%;
+    box-sizing: border-box;
+}
+
+.blog-card h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.blog-card p {
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Button */
+.blog-card button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.blog-card button:hover {
+    background-color: #0056b3;
+}
+
+/* Tablet View */
+@media (max-width: 900px) {
+    .blog-card {
+        flex: 1 1 45%;
+    }
+}
+
+/* Mobile View */
+@media (max-width: 600px) {
+    main {
+        flex-direction: column;
+    }
+
+    .blog-card {
+        flex: 1 1 100%;
+    }
+}
