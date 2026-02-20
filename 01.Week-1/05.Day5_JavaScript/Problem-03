@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Counter App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #counter {
+            font-size: 48px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #4CAF50;
+            transition: transform 0.2s ease;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            width: 60px;
+            font-size: 16px;
+            margin-right: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        #incrementBtn {
+            background-color: #4CAF50;
+        }
+        #incrementBtn:hover {
+            background-color: #45a049;
+        }
+
+        #resetBtn {
+            background-color: #f44336;
+        }
+        #resetBtn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Enhanced Counter</h1>
+    <div>
+        <input type="number" id="stepInput" value="1" min="1">
+        <button id="incrementBtn">Increment</button>
+        <button id="resetBtn">Reset</button>
+    </div>
+    <div id="counter">0</div>
+</div>
+
+<script>
+    // Global counter variable
+    var counter = 0;
+
+    // Function to increment counter with animation
+    function incrementCounter(step) {
+        var target = counter + step;
+        var display = document.getElementById('counter');
+
+        // Animate increment smoothly
+        var start = counter;
+        var duration = 200; // animation duration in ms
+        var startTime = null;
+
+        function animate(time) {
+            if (!startTime) startTime = time;
+            var progress = time - startTime;
+            var current = Math.min(start + (step * (progress / duration)), target);
+            display.textContent = Math.floor(current);
+            display.style.transform = "scale(1.2)";
+            if (progress < duration) {
+                requestAnimationFrame(animate);
+            } else {
+                display.textContent = target;
+                counter = target; // update global counter
+                display.style.transform = "scale(1)";
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    // Function to reset counter
+    function resetCounter() {
+        counter = 0;
+        document.getElementById('counter').textContent = counter;
+        document.getElementById('counter').style.transform = "scale(1)";
+    }
+
+    // Event listeners
+    document.getElementById('incrementBtn').addEventListener('click', function() {
+        var step = parseInt(document.getElementById('stepInput').value) || 1;
+        incrementCounter(step);
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', resetCounter);
+</script>
+
+</body>
+</html>
