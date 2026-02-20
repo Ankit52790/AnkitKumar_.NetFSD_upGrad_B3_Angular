@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive User Info</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Container styling */
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 320px;
+            transition: background-color 0.5s ease;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Input box styling */
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin: 8px 0;
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px 20px;
+            background-color: #FF6F61;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e65a50;
+        }
+
+        /* User info styling */
+        .user-info p {
+            font-size: 16px;
+            color: #333;
+            margin: 8px 0;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.8s ease, transform 0.5s ease;
+        }
+
+        /* Bounce animation */
+        .bounce {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="container">
+    <h1>Enter Your Info</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <input type="number" id="ageInput" placeholder="Enter your age">
+    <input type="text" id="cityInput" placeholder="Enter your city">
+    <br>
+    <button onclick="displayUserInfo()">Show User Info</button>
+    <div class="user-info" id="userInfo"></div>
+</div>
+
+<script>
+    function displayUserInfo() {
+        // Create a local user object using input values
+        var user = {
+            name: document.getElementById('nameInput').value,
+            age: document.getElementById('ageInput').value,
+            city: document.getElementById('cityInput').value
+        };
+
+        // Get container for displaying user info
+        var container = document.getElementById('userInfo');
+        container.innerHTML = ""; // Clear previous content
+
+        // Random colors for container background
+        var colors = ["#FFDEE9", "#B5FFFC", "#FFFBBA", "#D4FFD4", "#E0BBE4", "#FF9AA2"];
+        var randomColor = colors[Math.floor(Math.random() * colors.length)];
+        document.getElementById('container').style.backgroundColor = randomColor;
+
+        // Create and append <p> elements for each property with bounce effect
+        var delay = 0;
+        for (var key in user) {
+            var p = document.createElement('p');
+            p.textContent = key.charAt(0).toUpperCase() + key.slice(1) + ": " + user[key];
+            container.appendChild(p);
+
+            // Trigger fade-in and bounce with slight delay for each line
+            (function(el, d) {
+                setTimeout(function() {
+                    el.style.opacity = 1;
+                    el.classList.add('bounce');
+                }, d);
+            })(p, delay);
+            
+            delay += 200; // stagger effect
+        }
+    }
+</script>
+
+</body>
+</html>
