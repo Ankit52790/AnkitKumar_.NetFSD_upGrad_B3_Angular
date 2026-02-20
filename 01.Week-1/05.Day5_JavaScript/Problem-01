@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeting Generator</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.5s ease; /* Smooth background color change */
+        }
+
+        /* Container for the form */
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Input box styling */
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Greeting message styling */
+        #greeting {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+            opacity: 0; /* start invisible */
+            transition: opacity 0.8s ease; /* fade-in effect */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Greeting Generator</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <br>
+    <button onclick="generateGreeting()">Generate Greeting</button>
+    <p id="greeting"></p>
+</div>
+
+<script>
+    // Function to generate greeting
+    function generateGreeting() {
+        var name = document.getElementById('nameInput').value;
+
+        // Local variable for the greeting message
+        var message = "Hello, " + name + "! Welcome to our website.";
+
+        // Display message in <p> element
+        var greetingEl = document.getElementById('greeting');
+        greetingEl.textContent = message;
+
+        // Trigger fade-in
+        greetingEl.style.opacity = 0;
+        setTimeout(function() {
+            greetingEl.style.opacity = 1;
+        }, 50);
+
+        // Change background color dynamically
+        var colors = ["#FFDEE9", "#B5FFFC", "#FFFBBA", "#D4FFD4", "#E0BBE4", "#FF9AA2"];
+        var randomColor = colors[Math.floor(Math.random() * colors.length)];
+        document.body.style.backgroundColor = randomColor;
+    }
+</script>
+
+</body>
+</html>
