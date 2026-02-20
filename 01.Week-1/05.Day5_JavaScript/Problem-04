@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Student profile card */
+        .profile {
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .profile p {
+            margin: 10px 0;
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            width: 80px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Student Profile Manager</h1>
+    <div class="profile" id="profileDisplay"></div>
+    <div style="margin-top:15px;">
+        <input type="number" id="marksInput" placeholder="Enter new marks">
+        <button id="updateMarksBtn">Update Marks</button>
+    </div>
+</div>
+
+<script>
+    // Global student object
+    var student = {
+        name: "Rahul Sharma",
+        rollNo: "21CS101",
+        marks: 85
+    };
+
+    // Function to display/update student profile
+    function updateStudentProfile(studentObj) {
+        var display = document.getElementById('profileDisplay');
+        display.innerHTML = ""; // Clear previous content
+
+        for (var key in studentObj) {
+            var p = document.createElement('p');
+            p.textContent = key.charAt(0).toUpperCase() + key.slice(1) + ": " + studentObj[key];
+            display.appendChild(p);
+        }
+    }
+
+    // Function to update marks and refresh profile
+    function updateMarks(newMarks) {
+        student.marks = newMarks;
+        updateStudentProfile(student);
+    }
+
+    // Initial display
+    updateStudentProfile(student);
+
+    // Event listener for updating marks
+    document.getElementById('updateMarksBtn').addEventListener('click', function() {
+        var newMarks = parseInt(document.getElementById('marksInput').value);
+        if (!isNaN(newMarks)) {
+            updateMarks(newMarks);
+            document.getElementById('marksInput').value = "";
+        } else {
+            alert("Please enter valid marks");
+        }
+    });
+</script>
+
+</body>
+</html>
