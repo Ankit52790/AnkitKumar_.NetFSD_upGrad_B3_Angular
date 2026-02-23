@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Logger</title>
+</head>
+
+<body onload="loadLocationHistory()">
+
+    <h2>Location-Based Weather Logger</h2>
+
+    <button onclick="getLocation()">Get My Location</button>
+
+    <h3>Current Location:</h3>
+    <p id="currentLocation"></p>
+
+    <h3>Last 5 Locations:</h3>
+    <ul id="locationHistory"></ul>
+
+<script>
+
+    // Get location when button clicked
+    function getLocation() {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                successCallback,
+                errorCallback,
+                { timeout: 10000 }   // 10 sec timeout
+            );
+        } else {
+            document.getElementById("currentLocation").innerText =
+                "Geolocation is not supported by this browser.";
+        }
+    }
+
+    // Success callback
+    function successCallback(position) {
+
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        document.getElementById("currentLocation").innerText =
+            "Latitude: " + latitude + 
+            " | Longitude: " + longitude;
+
+        saveLocation(latitude, longitude);
+    }
+
+    // Error callback
+    function errorCallback(error) {
+
+        var message = "";
+
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                message = "Permission denied by user.";
+                break;
+            case error.TIMEOUT:
+                message = "Request timed out.";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                message = "Location information unavailable.";
+                break;
+            default:
+                message = "Unknown error occurred.";
+        }
+
+        document.getElementById("currentLocation").innerText = message;
+    }
+
+    // Save last 5 locations
+    function saveLocation(lat, lon) {
+
+        var locationData = {
+            latitude: lat,
+            longitude: lon,
+            time: new Date().toLocaleString()
+        };
+
+        var locations = JSON.parse(localStorage.getItem("locations")) || [];
+
+        locations.unshift(locationData);  // Add new entry at top
+
+        if (locations.length > 5) {
+            locations.pop();   // Keep only last 5
+        }
+
+        localStorage.setItem("locations", JSON.stringify(locations));
+
+        displayHistory(locations);
+    }
+
+    // Load history on page load
+    function loadLocationHistory() {
+
+        var locations = JSON.parse(localStorage.getItem("locations")) || [];
+
+        displayHistory(locations);
+    }
+
+    // Display history
+    function displayHistory(locations) {
+
+        var list = document.getElementById("locationHistory");
+        list.innerHTML = "";
+
+        locations.forEach(function(loc) {
+
+            var li = document.createElement("li");
+
+            li.innerText =
+                "Lat: " + loc.latitude +
+                " | Lon: " + loc.longitude +
+                " | Time: " + loc.time;
+
+            list.appendChild(li);
+        });
+    }
+
+</script>
+
+</body>
+</html>
