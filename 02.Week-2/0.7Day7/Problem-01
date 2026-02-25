@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marks Analyzer</title>
+</head>
+<body>
+
+<h2>Student Marks Analyzer</h2>
+
+<button id="analyzeBtn">Analyze Marks</button>
+
+<div id="output" ></div>
+
+<script type="module" src="analyzer.js"></script>
+
+</body>
+</html>
+
+**********************************JS file********************************
+
+// Store student marks
+const marks = [75, 82, 48, 90, 67];
+
+
+// Get DOM element
+const outputDiv = document.getElementById("output");
+const analyzeBtn = document.getElementById("analyzeBtn");
+
+
+// Function to calculate total using reduce()
+const calculateTotal = (arr) => {
+    return arr.reduce((total, mark) => total + mark, 0);
+};
+
+
+// Function to calculate average
+const calculateAverage = (total, count) => total / count;
+
+
+// Function to determine pass/fail
+const getResult = (avg) => avg >= 50 ? "PASS " : "FAIL ";
+
+
+// Function to convert marks to grade using map()
+const convertToGrades = (arr) => {
+    return arr.map(mark => {
+        if (mark >= 85) return "A";
+        if (mark >= 70) return "B";
+        if (mark >= 50) return "C";
+        return "F";
+    });
+};
+
+// Main analysis function
+const analyzeMarks = () => {
+
+    const total = calculateTotal(marks);
+    const average = calculateAverage(total, marks.length);
+    const result = getResult(average);
+    const grades = convertToGrades(marks);
+
+    outputDiv.innerHTML = `
+        <h3>Analysis Result</h3>
+        <p><strong>Marks:</strong> ${marks.join(", ")}</p>
+        <p><strong>Total:</strong> ${total}</p>
+        <p><strong>Average:</strong> ${average.toFixed(2)}</p>
+        <p><strong>Result:</strong> ${result}</p>
+        <p><strong>Grades:</strong> ${grades.join(", ")}</p>
+    `;
+};
+
+// Event Listener
+analyzeBtn.addEventListener("click", analyzeMarks);
