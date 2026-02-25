@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic To-Do List</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 30px;
+        }
+
+        #taskInput {
+            padding: 8px;
+            width: 250px;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        ul {
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            background-color: #d4edda;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Dynamic To-Do List</h2>
+
+<input type="text" id="taskInput" placeholder="Enter task">
+<button id="addBtn">Add Task</button>
+
+<ul id="taskList"></ul>
+
+<script>
+
+// MODULE PATTERN 
+
+const TaskManager = (() => {
+
+    let tasks = [];
+
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+    const addBtn = document.getElementById("addBtn");
+
+    //  ADD TASK 
+    const addTask = () => {
+        const text = taskInput.value.trim();
+        if (!text) return;
+
+        const task = {
+            id: Date.now(),
+            text,
+            completed: false
+        };
+
+        tasks.push(task);
+        taskInput.value = "";
+        renderTasks();
+    };
+
+    //  DELETE TASK 
+    const deleteTask = (id) => {
+        tasks = tasks.filter(task => task.id !== id);
+        renderTasks();
+    };
+
+    //  TOGGLE COMPLETE 
+    const toggleTask = (id) => {
+        tasks = tasks.map(task =>
+            task.id === id
+                ? { ...task, completed: !task.completed }
+                : task
+        );
+        renderTasks();
+    };
+
+    //  RENDER TASKS 
+    const renderTasks = () => {
+
+        taskList.innerHTML = tasks
+            .map(task => `
+                <li data-id="${task.id}" class="${task.completed ? 'completed' : ''}">
+                    <span class="task-text">${task.text}</span>
+                    <div>
+                        <button class="complete-btn">YES</button>
+                        <button class="delete-btn">NO</button>
+                    </div>
+                </li>
+            `)
+            .join("");
+    };
+
+    // EVENT LISTENERS 
+
+    const init = () => {
+
+        // Add button click
+        addBtn.addEventListener("click", addTask);
+
+        // Event Delegation
+        taskList.addEventListener("click", (e) => {
+
+            const li = e.target.closest("li");
+            if (!li) return;
+
+            const id = Number(li.dataset.id);
+
+            if (e.target.classList.contains("delete-btn")) {
+                deleteTask(id);
+            }
+
+            if (e.target.classList.contains("complete-btn")) {
+                toggleTask(id);
+            }
+        });
+    };
+
+    return { init };
+
+})();
+
+
+// INITIALIZE
+TaskManager.init();
+
+</script>
+
+</body>
+</html>
