@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Async Task Manager</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { margin-left: 5px; }
+        li { margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+<h2>Task Manager (Async Storage)</h2>
+
+<input type="text" id="taskInput" placeholder="Enter new task">
+<button onclick="handleAddTask()">Add Task</button>
+
+<br><br>
+
+<ul id="taskList"></ul>
+
+<script>
+
+// Create Array
+
+let tasks = [];
+
+// Add Task (Promise)
+const addTask = (task) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            tasks.push(task);
+            resolve(`Task "${task}" added successfully`);
+        }, 500);
+    });
+};
+
+// Delete Task (Promise)
+const deleteTask = (index) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (index >= 0 && index < tasks.length) {
+                const removed = tasks.splice(index, 1);
+                resolve(`Task "${removed}" deleted`);
+            } else {
+                reject("Invalid task index");
+            }
+        }, 500);
+    });
+};
+
+// List Tasks (Promise)
+const listTasks = () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(tasks);
+        }, 500);
+    });
+};
+
+
+//  UI HANDLERS (Async/Await) 
+
+const taskInput = document.getElementById("taskInput");
+const taskList = document.getElementById("taskList");
+
+// Add Task Button Handler
+const handleAddTask = async () => {
+
+    const taskText = taskInput.value.trim();
+
+    if (!taskText) {
+        alert("Please enter a task");
+        return;
+    }
+
+    try {
+        await addTask(taskText);
+        taskInput.value = "";
+        renderTasks();
+    } catch (error) {
+        alert(error);
+    }
+};
+
+// Delete Task Button Handler
+const handleDeleteTask = async (index) => {
+    try {
+        await deleteTask(index);
+        renderTasks();
+    } catch (error) {
+        alert(error);
+    }
+};
+
+// Render Tasks to UI
+const renderTasks = async () => {
+
+    const currentTasks = await listTasks();
+
+    taskList.innerHTML = currentTasks
+        .map((task, index) => `
+            <li>
+                ${task}
+                <button onclick="handleDeleteTask(${index})">Delete</button>
+            </li>
+        `)
+        .join("");
+};
+
+</script>
+
+</body>
+</html>
