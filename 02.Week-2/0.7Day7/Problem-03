@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Filter System</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        select, button {
+            padding: 6px;
+            margin-top: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            width: 70%;
+        }
+
+        th, td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Employee Management System</h2>
+
+<label>Select Job:</label>
+<select id="jobSelect">
+    <option value="All">All Employees</option>
+    <option value="Manager">Manager</option>
+    <option value="Salesman">Salesman</option>
+    <option value="Clerk">Clerk</option>
+</select>
+
+<br>
+<button id="showBtn">Show Emps</button>
+
+<div id="output"></div>
+
+<script>
+
+// Employee Collection (Array of Objects)
+
+
+const employees = [
+    { id: 101, name: "Ankit", job: "Manager", salary: 90000 },
+    { id: 102, name: "Rahul", job: "Salesman", salary: 40000 },
+    { id: 103, name: "Priya", job: "Clerk", salary: 30000 },
+    { id: 104, name: "Neha", job: "Salesman", salary: 45000 },
+    { id: 105, name: "Amit", job: "Manager", salary: 85000 }
+];
+
+
+
+// Show Employees Button Event
+
+
+document.getElementById("showBtn").addEventListener("click", () => {
+
+    const selectedJob = document.getElementById("jobSelect").value;
+
+    let filteredEmployees;
+
+    // Filter Logic
+    if (selectedJob === "All") {
+        filteredEmployees = employees;
+    } else {
+        filteredEmployees = employees.filter(emp => emp.job === selectedJob);
+    }
+
+    displayTable(filteredEmployees);
+});
+
+
+
+// Display Employees in Table
+
+
+const displayTable = (empList) => {
+
+    if (empList.length === 0) {
+        document.getElementById("output").innerHTML =
+            "<p>No employees found.</p>";
+        return;
+    }
+
+    let tableHTML = `
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Salary</th>
+            </tr>
+    `;
+
+    empList.forEach(emp => {
+        tableHTML += `
+            <tr>
+                <td>${emp.id}</td>
+                <td>${emp.name}</td>
+                <td>${emp.job}</td>
+                <td>₹${emp.salary}</td>
+            </tr>
+        `;
+    });
+
+    tableHTML += "</table>";
+
+    document.getElementById("output").innerHTML = tableHTML;
+};
+
+</script>
+
+</body>
+</html>
