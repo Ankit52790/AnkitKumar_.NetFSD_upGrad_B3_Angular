@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 > Student class </h2>
+    <button onclick="showStudents()">Show Students</button>
+
+    <div id="output"></div>
+
+    <script>
+
+        class Student {
+            constructor(name, rollNumber, marks){
+                this.name = name;
+                this.rollNumber = rollNumber;
+                this.marks = marks;
+            }
+
+            getDetails(){
+                return `Name: ${this.name},
+                        Roll No: ${this.rollNumber},
+                        Marks:${this.marks}`;
+            
+            }
+            getGrade(){
+                if(this.marks>=90)
+                return "A";
+                else if(this.marks>= 75)
+                return "B";
+                else if (this.marks >=50)
+                return "C";
+                else return "Fail or Not Passed";
+            }
+        }
+
+        const st1=new Student("Ankit", 101, 92);
+        const st2=new Student("Sam", 101, 68);
+
+        function showStudents(){
+            const outputDiv = document.getElementById("output");
+
+            outputDiv.innerHTML = `<p> ${st1.getDetails()} - Grade: ${st1.getGrade()}</p
+                                   <p>${st2.getDetails()} - Grade: ${st2.getGrade()}</p>`;
+        }
+    </script>
+
+</body>
+</html>
