@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment System</title>
+</head>
+<body>
+
+<h2>Payment System</h2>
+
+<button onclick="processPayments()">Make Payments</button>
+
+<div id="output"></div>
+
+<script>
+
+class Payment {
+    pay(amount) {
+        return "Processing payment";
+    }
+}
+
+class CreditCardPayment extends Payment {
+    pay(amount) {
+        return `Paid Rs${amount} using Credit Card`;
+    }
+}
+
+class UPIPayment extends Payment {
+    pay(amount) {
+        return `Paid Rs${amount} using UPI`;
+    }
+}
+
+class CashPayment extends Payment {
+    pay(amount) {
+        return `Paid Rs${amount} in Cash`;
+    }
+}
+
+const credit = new CreditCardPayment();
+const upi = new UPIPayment();
+const cash = new CashPayment();
+
+function processPayments() {
+    const outputDiv = document.getElementById("output");
+
+    outputDiv.innerHTML = `
+        <p>${credit.pay(500)}</p>
+        <p>${upi.pay(1000)}</p>
+        <p>${cash.pay(300)}</p>
+    `;
+}
+
+</script>
+
+</body>
+</html>
