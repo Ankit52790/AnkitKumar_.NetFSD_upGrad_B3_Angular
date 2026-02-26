@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Vehicle Details</h2>
+    <button onclick="showVehicle()">Show Vehicle Info</button>
+    <div id="output"></div>
+
+    <script>
+        // Parent Class
+        class Vehicle {
+            constructor (brandName, VehicleSpeed,color) {
+                this.brandName = brandName;
+                this.VehicleSpeed = VehicleSpeed;
+                this.color=color;
+
+            }
+
+            // parent Methods
+            displayInfo() {
+                return `BrandName: ${this.brandName},
+                        VehicleSpeed: ${this.VehicleSpeed} km/h`;
+
+            }
+        }
+        //child class 
+        class Car extends Vehicle {
+            constructor(brandName, VehicleSpeed, fuelType) {
+                super(brandName, VehicleSpeed); // call for parent constructor
+                this.fuelType = fuelType;
+            }
+            showCarDetails(){
+                return `Fuel Type:${this.fuelType}`;
+            }
+
+            }
+
+            const myCar = new Car ("BMW", 320, "diesel");
+
+            function showVehicle(){
+                const outputDiv = document.getElementById("output");
+
+                outputDiv.innerHTML= `<p>${myCar.displayInfo()}</p>
+                                      <p>${myCar.showCarDetails()}</p>`;
+            }
+
+    </script>
+
+</body>
+</html>
