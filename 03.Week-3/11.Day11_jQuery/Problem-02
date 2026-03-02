@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script  src="https://code.jquery.com/jquery-4.0.0.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .faq-container {
+            width: 500px;
+            
+        }
+        .faq-question {
+            background-color: #f2f2f2;
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            margin-top: 5px;
+            transition: 0.3s;
+        }
+        .faq-answer {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-top: none;
+            background-color: #fafafa;
+        }
+
+        /* Highlight class */
+        .active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-container">
+        
+        <div class="faq-item">
+            <div class="faq-question">1.What courses do you offer?</div>
+            <div class="faq-answer">We offer Wb Development, Data Science, AI/ML Courses etc.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">2. What is the course duration?</div>
+            <div class="faq-answer"> 3 to 6 months.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">3. Do you provide certificates?</div>
+            <div class="faq-answer">Yes, we provide certification after successful completion.</div>
+        </div>
+
+    <div class="faq-item">
+        <div class="faq-question">4. Are classes live or recorded?</div>
+        <div class="faq-answer">We provide both live and recorded.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">5. Is placement support available?</div>
+        <div class="faq-answer">Yes, we provide placement assistance and interview guidance.</div>
+    </div>
+
+    </div>
+
+        <script>
+            $(document).ready(function(){
+                $(".faq-question").click(function(){
+                   // Toggle currnt ans
+                   $(this).next(".faq-answer").slideToggle(2000);
+                   // Toggle highlight 
+                   $(this).toggleClass("active");
+                   
+
+                });
+            });
+        </script>
+
+</body>
+</html>
