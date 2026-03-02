@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script  src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input, select, textarea {
+            width: 250px;
+            padding: 6px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+            color: blue;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <h2>FeedBack Form Using JQuery</h2>
+    <form id="feedbackForm">
+        <label>Full Name</label>
+        <input type="text" id="name" required>
+        <br>
+
+        <label >E-mail:</label>
+        <input type="email" id="email" required>
+        <br>
+
+        <label>Course Rating</label>
+        <br>
+        <select id="rating">
+
+        <option value="">Select Rating</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+        </select>
+        <br>
+
+        <label >Comments:</label>
+        <textarea id="comments"></textarea>
+        <br>
+
+        <button type="button" id="submitBtn">Submit</button>
+
+        </form>
+
+        <div id="message">
+
+        <script>
+            $(document).ready(function(){
+                $("#submitBtn").click(function(){
+
+                    let name = $("#name").val();
+                    let email = $("#email").val();
+                    let rating = $("#rating").val();
+                    let comments = $("#comments").val();
+
+                    $("#message").html("");
+
+                    // validate
+                    if(name === "" || email === ""){
+                        $("#message").html("<div class='error'> Enter both Name and Email.</div>");
+                    }
+                    else {
+                        $("#message").html("<div class='success'>Thank you! Your feedback has been submitted successfully.</div>");
+
+                        // Clear form fields
+                        $("#feedbackForm").reset();
+                    }
+
+                });
+            });
+        </script>
+        </div>
+
+</body>
+</html>
