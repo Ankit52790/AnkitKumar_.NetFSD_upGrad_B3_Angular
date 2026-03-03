@@ -1,0 +1,75 @@
+CREATE DATABASE EventDb
+
+USE EventDb
+
+--Create UserInfo table
+CREATE TABLE UserInfo(
+Email_Id varchar(50) PRIMARY KEY,
+UserName varchar(50) NOT NULL,
+[Role] varchar(20) NOT NULL,
+[Password] varchar(20) NOT NULL,
+
+CONSTRAINT CHK_UserName_Length
+     CHECK (LEN(UserName) BETWEEN 1 AND 50),
+CONSTRAINT CHK_Role
+     CHECK(Role IN ('Admin','Participant')),
+CONSTRAINT CHK_Password_Length 
+      CHECK (LEN(Password) BETWEEN 6 AND 20)
+);
+
+
+--EventDetails Table
+CREATE TABLE EventDetails (
+
+EventID INT PRIMARY KEY,
+EventName varchar(50) NOT NULL,
+EventCategory varchar(50) NOT NULL,
+EventDate DATETIME NOT NULL,
+Description varchar(255) NULL,
+
+Status varchar(15) NOT NULL,
+
+CONSTRAINT CHK_EventName_Length
+      CHECK (LEN(EventName) BETWEEN 1 AND 50),
+
+CONSTRAINT CHK_EventCategory_Length
+       CHECK (LEN(EventCategory) BETWEEN 1 AND 50),
+
+CONSTRAINT CHK_Status
+       CHECK (Status IN ('Active', 'In-Active'))
+
+
+);
+
+
+-- Create SpeakersDetails Table
+CREATE TABLE SpeakersDetails (
+SpeakerId INT PRIMARY KEY,
+
+SpeakerName varchar(50) NOT NULL,
+
+CONSTRAINT CHK_SpeackerName_Length
+     CHECK (LEN(SpeakerName) BETWEEN 1 AND 50)
+);
+
+
+--ParticipantEventDetails Table
+CREATE TABLE ParticipantEventDetails (
+    Id INT PRIMARY KEY,
+    ParticipantEmailId VARCHAR(50) NOT NULL,
+    EventId INT NOT NULL,
+    SessionId INT NOT NULL,
+    IsAttended BIT NOT NULL,
+
+CONSTRAINT FK_Participant_User
+        FOREIGN KEY (ParticipantEmailId)
+        REFERENCES UserInfo(Email_Id),
+
+CONSTRAINT FK_Participant_Event
+        FOREIGN KEY (EventId)
+        REFERENCES EventDetails(EventId),
+
+CONSTRAINT FK_Participant_Session
+        FOREIGN KEY (SessionId)
+        REFERENCES SessionInfo(SessionId)
+);
