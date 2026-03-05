@@ -1,0 +1,106 @@
+USE AutoDb;
+
+--Create Customers Table
+
+CREATE TABLE customers (
+      customer_id INT PRIMARY KEY IDENTITY(1,1),
+	  fisrt_name VARCHAR(50),
+	  last_name VARCHAR(50),
+	  email VARCHAR(100)
+);
+--Create Orders Table
+CREATE TABLE orders(
+     order_id INT PRIMARY KEY,
+	 customer_id INT,
+	 order_date DATE,
+	 order_value DECIMAL(10,2),
+
+	 CONSTRAINT fk_customer 
+	 FOREIGN KEY (customer_id)
+	 REFERENCES customers(customer_id)
+);
+
+--Insert Data into Customers Table
+INSERT INTO customers VALUES
+('Ankit','Kumar','ankit@gmail.com'),
+('Rahul','Sharma','rahul@gmail.com'),
+('Priya','Verma','priya@gmail.com'),
+('Amit','Singh','amit@gmail.com'),
+('Neha','Gupta','neha@gmail.com');
+
+--Insert Data into Orders Table
+INSERT INTO orders VALUES
+(101,1,'2026-03-01',3000),
+(102,1,'2026-03-03',4000),
+(103,2,'2026-03-04',12000),
+(104,3,'2026-03-05',2000),
+(105,3,'2026-03-06',2500);
+
+--Check Tables of customers
+SELECT * FROM customers;
+
+--Check Tables orders
+SELECT * FROM orders;
+
+--Final -Customer Classification
+-- Customers who placed orders
+
+SELECT 
+--Full Name Concatenation
+    c.fisrt_name + ' ' + c.last_name AS full_name,
+
+--Nested Query for Total Orders
+--This calculates total spending per customer.
+    (SELECT SUM(o.order_value)
+     FROM orders o
+     WHERE o.customer_id = c.customer_id) AS total_order_value,
+
+--Customer Classification
+--Case 1:-
+    CASE 
+        WHEN (SELECT SUM(o.order_value)
+              FROM orders o
+--WHEN total > 10000 THEN 'Premium'
+              WHERE o.customer_id = c.customer_id) > 10000 THEN 'Premium'
+
+--Case 2:-
+        WHEN (SELECT SUM(o.order_value)
+              FROM orders o
+--WHEN total BETWEEN 5000 AND 10000 THEN 'Regular'
+              WHERE o.customer_id = c.customer_id) BETWEEN 5000 AND 10000 THEN 'Regular'
+
+--Case-3:-
+        WHEN (SELECT SUM(o.order_value)
+              FROM orders o
+
+--WHEN total < 5000 THEN 'Basic'
+              WHERE o.customer_id = c.customer_id) < 5000 THEN 'Basic'
+    END AS customer_type
+
+--1.Customers Who Placed Orders
+FROM customers c
+JOIN orders o
+ON c.customer_id = o.customer_id
+
+--GROUP BY groups rows per customer.
+GROUP BY c.customer_id, c.fisrt_name, c.last_name
+
+-- APPLY UNION Operator, it's combines results of two SELECT queries.
+UNION
+
+
+--2. Customers without orders
+SELECT 
+    c.fisrt_name + ' ' + c.last_name AS full_name,
+    0 AS total_order_value,
+    'No Orders' AS customer_type
+
+--Again we select from customers table.
+FROM customers c
+
+--find customers even if they never ordered.
+--Select customers whose ID does NOT exist in orders table
+WHERE c.customer_id NOT IN
+(
+    SELECT customer_id FROM orders
+);
