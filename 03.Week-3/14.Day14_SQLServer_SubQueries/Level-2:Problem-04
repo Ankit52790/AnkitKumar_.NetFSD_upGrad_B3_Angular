@@ -1,0 +1,55 @@
+--Level-2: Problem 4 – Order Cleanup and Data Maintenance
+
+USE AutoDb;
+
+--Create Archive Table
+CREATE TABLE archived_orders(
+    order_id INT,
+    customer_id INT,
+    order_date DATE,
+    order_value DECIMAL(10,2)
+);
+
+--Insert Old Rejected Orders
+--(Real scenario would use order_status = 3 but the table does not yet have that column.)
+INSERT INTO archived_orders
+SELECT *
+FROM orders
+WHERE order_value < 2000;   --Example condition 
+
+--Delete Old Orders
+DELETE FROM orders
+WHERE order_date < DATEADD(YEAR,-1,GETDATE());
+
+--Customers Whose All Orders Are Completed
+--Example using nested query
+SELECT customer_id
+FROM orders o
+WHERE NOT EXISTS
+(
+    SELECT *
+    FROM orders o2
+    WHERE o.customer_id = o2.customer_id
+    AND o2.order_value < 2000
+);
+--Order Processing Delay
+
+SELECT 
+    order_id,
+    order_date,
+    DATEADD(day,5,order_date) AS shipped_date,
+
+    DATEDIFF(day, order_date, DATEADD(day,5,order_date)) AS delay_days
+FROM orders;
+
+--Mark Orders as Delayed / On Time
+SELECT 
+    order_id,
+    order_date,
+
+    CASE
+        WHEN DATEDIFF(day, order_date, GETDATE()) > 5
+        THEN 'Delayed'
+        ELSE 'On Time'
+    END AS order_status
+FROM orders;
