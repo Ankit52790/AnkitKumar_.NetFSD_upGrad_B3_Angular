@@ -1,0 +1,75 @@
+USE StoreDB;
+
+--  Stores Table
+CREATE TABLE stores (
+    store_id INT PRIMARY KEY,
+    store_name VARCHAR(100)
+);
+--Orders Table
+--add store_id column + foreign key use ALTER TABLE
+--Add store_id Column
+ALTER TABLE orders
+ADD store_id INT;
+
+--Add Foreign Key Constraint
+ALTER TABLE orders
+ADD CONSTRAINT fk_store
+FOREIGN KEY (store_id)
+REFERENCES stores(store_id);
+
+--Order Items Table
+
+CREATE TABLE order_items (
+    item_id INT PRIMARY KEY,
+    order_id INT,
+    quantity INT,
+    list_price DECIMAL(10,2),
+    discount DECIMAL(4,2),
+
+    FOREIGN KEY (order_id)
+    REFERENCES orders(order_id)
+);
+
+--Insert Sample Data
+--Stores
+INSERT INTO stores VALUES
+(1, 'Delhi Store'),
+(2, 'Mumbai Store');
+
+--Orders
+INSERT INTO orders VALUES
+(101, '2026-03-01', 4, 1,1),
+(102, '2026-03-02', 4, 2,2),
+(103, '2026-03-03', 1, 1,1);  
+
+SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_NAME = 'orders';
+
+--Order Items
+INSERT INTO orders 
+(order_id, order_date, order_status, customer_id, store_id)
+VALUES
+(201, '2026-03-01', 4, 1, 1),
+(202, '2026-03-02', 4, 2, 2),
+(203, '2026-03-03', 1, 1, 1);
+
+INSERT INTO order_items
+(item_id, order_id, quantity, list_price, discount)
+VALUES
+(1, 101, 2, 1000, 0.10),
+(2, 102, 1, 500, 0.05),
+(3, 201, 3, 2000, 0.15),
+(4, 202, 1, 1500, 0.00);
+
+--store_name
+--Total Sales:quantity * list_price * (1 - discount)
+SELECT s.store_name,CAST(SUM(oi.quantity * oi.list_price * (1 - oi.discount)) AS DECIMAL(10,2)) AS total_sales
+FROM stores s
+INNER JOIN orders o ON s.store_id = o.store_id
+INNER JOIN order_items oi ON o.order_id = oi.order_id
+
+WHERE o.order_status = 4 --Only completed orders ? order_status = 4
+--Group by store_name
+GROUP BY s.store_name
+--Sort by total sales DESC
+ORDER BY total_sales DESC;
