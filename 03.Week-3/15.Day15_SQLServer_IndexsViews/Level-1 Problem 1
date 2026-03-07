@@ -1,0 +1,124 @@
+--Level-1 Problem 1: Basic Setup and Data Retrieval in EcommDb
+
+CREATE DATABASE EcommDb;
+
+USE EcommDb;
+
+--Create Tables (Schema)
+
+--Categories Table
+CREATE TABLE categories (
+    category_id INT PRIMARY KEY,
+    category_name VARCHAR(100)
+);
+
+--Brands Table
+CREATE TABLE brands (
+    brand_id INT PRIMARY KEY,
+    brand_name VARCHAR(100)
+);
+
+--Products Table
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100),
+    brand_id INT,
+    category_id INT,
+    model_year INT,
+    list_price DECIMAL(10,2),
+
+    FOREIGN KEY (brand_id) REFERENCES brands(brand_id),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+--Customers Table
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    city VARCHAR(50),
+    email VARCHAR(100)
+);
+
+--Stores Table
+CREATE TABLE stores (
+    store_id INT PRIMARY KEY,
+    store_name VARCHAR(100),
+    city VARCHAR(50)
+);
+
+--Insert Data
+
+--Insert Categories
+INSERT INTO categories VALUES
+(1,'Cars'),
+(2,'Motorcycles'),
+(3,'Electric Vehicles'),
+(4,'Trucks'),
+(5,'SUV');
+
+--Insert Brands
+INSERT INTO brands VALUES
+(1,'Honda'),
+(2,'Hyundai'),
+(3,'Tesla'),
+(4,'Tata'),
+(5,'Mahindra');
+
+--Insert Products
+INSERT INTO products VALUES
+(1,'Honda City',1,1,2020,1000000),
+(2,'Hyundai Verna',2,1,2021,1100000),
+(3,'Tesla Model 3',3,3,2022,5000000),
+(4,'Tata Nexon EV',4,3,2021,1700000),
+(5,'Mahindra Scorpio',5,5,2020,1500000);
+
+--Insert Customers
+INSERT INTO customers VALUES
+(1,'Ankit','Kumar','Lucknow','ankit@gmail.com'),
+(2,'Rahul','Sharma','Delhi','rahul@gmail.com'),
+(3,'Priya','Verma','Lucknow','priya@gmail.com'),
+(4,'Amit','Singh','Mumbai','amit@gmail.com'),
+(5,'Neha','Gupta','Delhi','neha@gmail.com');
+
+--Insert Stores
+INSERT INTO stores VALUES
+(1,'AutoHub Lucknow','Lucknow'),
+(2,'CarWorld Delhi','Delhi'),
+(3,'DriveZone Mumbai','Mumbai'),
+(4,'EV Store Bangalore','Bangalore'),
+(5,'AutoMart Pune','Pune');
+
+--Retrieve Products with Brand and Category
+--Using JOIN
+SELECT 
+    p.product_name,
+    b.brand_name,
+    c.category_name,
+    p.model_year,
+    p.list_price
+
+FROM products p
+JOIN brands b
+ON p.brand_id = b.brand_id
+
+JOIN categories c
+ON p.category_id = c.category_id;
+
+
+--Retrieve Customers From Specific City
+SELECT *
+FROM customers
+WHERE city = 'Lucknow';
+
+--Total Products in Each Category
+--Use GROUP BY
+SELECT 
+    c.category_name,
+    COUNT(p.product_id) AS total_products
+
+FROM categories c
+LEFT JOIN products p
+ON c.category_id = p.category_id
+
+GROUP BY c.category_name;
