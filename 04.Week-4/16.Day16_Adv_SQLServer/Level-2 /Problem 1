@@ -1,0 +1,136 @@
+--Level-2 Problem 1-Stored Procedures and User-Defined Functions
+CREATE DATABASE SalesDB;
+
+USE SalesDB;
+
+--Create Tables
+
+--1.Store Table
+CREATE TABLE Stores (
+    StoreID INT PRIMARY KEY,
+    StoreName VARCHAR(100)
+);
+
+--2.Product Table
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Price DECIMAL(10,2)
+);
+--Orders Table
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    StoreID INT,
+    OrderDate DATE
+);
+
+--OrderDetails Table
+CREATE TABLE OrderDetails (
+    OrderDetailID INT PRIMARY KEY,
+    OrderID INT,
+    ProductID INT,
+    Quantity INT,
+    Discount DECIMAL(5,2)
+);
+
+--Insert Sample Data
+INSERT INTO Stores VALUES
+(1,'Delhi Store'),
+(2,'Mumbai Store');
+
+INSERT INTO Products (ProductID, ProductName, Price)
+VALUES
+(1,'Laptop',50000),
+(2,'Phone',20000),
+(3,'Tablet',15000);
+
+INSERT INTO Orders VALUES
+(1,1,'2024-01-10'),
+(2,2,'2024-01-11');
+
+INSERT INTO OrderDetails VALUES
+(1,1,1,2,500),
+(2,1,2,1,200),
+(3,2,2,3,300);
+
+--Stored Procedure – Total Sales Per Store
+
+--Create Procedure
+CREATE PROCEDURE usp_TotalSalesPerStore
+    @StoreID INT
+AS
+BEGIN
+
+SELECT 
+    s.StoreName,
+    SUM(p.Price * od.Quantity - ISNULL(od.Discount,0)) AS TotalSales
+
+FROM Stores s
+JOIN Orders o ON s.StoreID = o.StoreID
+JOIN OrderDetails od ON o.OrderID = od.OrderID
+JOIN Products p ON od.ProductID = p.ProductID
+
+WHERE s.StoreID = @StoreID
+
+GROUP BY s.StoreName
+
+END
+
+--Stored Procedure – Orders by Date Range
+
+--Create Procedure
+CREATE PROCEDURE usp_GetOrdersByDateRange
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+
+SELECT *
+FROM Orders
+WHERE OrderDate BETWEEN @StartDate AND @EndDate
+
+END
+
+--Execute
+EXEC usp_GetOrdersByDateRange '2024-01-01','2024-01-31'
+
+--Scalar Function – Total Price After Discount
+
+--Create Function
+CREATE FUNCTION fn_TotalPriceAfterDiscount
+(
+    @Price DECIMAL(10,2),
+    @Quantity INT,
+    @Discount DECIMAL(10,2)
+)
+RETURNS DECIMAL(10,2)
+AS
+BEGIN
+
+DECLARE @Total DECIMAL(10,2)
+
+SET @Total = (@Price * @Quantity) - ISNULL(@Discount,0)
+
+RETURN @Total
+
+END
+
+--Table-Valued Function – Top 5 Selling Products
+--Create Function
+
+CREATE FUNCTION fn_TopSellingProducts()
+RETURNS TABLE
+AS
+RETURN
+(
+SELECT TOP 5
+    p.ProductName,
+    SUM(od.Quantity) AS TotalSold
+
+FROM Products p
+JOIN OrderDetails od
+ON p.ProductID = od.ProductID
+
+GROUP BY p.ProductName
+ORDER BY TotalSold DESC
+)
