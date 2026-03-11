@@ -1,0 +1,119 @@
+--Create Database
+CREATE DATABASE RetailDB;
+
+--Use Database
+USE RetailDB;
+
+--Create Tables
+
+--Stores Table
+CREATE TABLE stores (
+    store_id INT PRIMARY KEY,
+    store_name VARCHAR(100)
+);
+
+--Orders Table
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    store_id INT,
+    order_status INT
+);
+
+--Products Table
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    price DECIMAL(10,2)
+);
+
+--Order_Items Table
+CREATE TABLE order_items (
+    order_item_id INT PRIMARY KEY,
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    discount DECIMAL(10,2)
+);
+
+--Insert Sample Data
+INSERT INTO stores VALUES
+(1,'Delhi Store'),
+(2,'Mumbai Store');
+
+INSERT INTO products VALUES
+(1,50000),
+(2,20000);
+
+INSERT INTO orders VALUES
+(1,1,4),
+(2,2,4),
+(3,1,2);
+
+INSERT INTO order_items VALUES
+(1,1,1,1,500),
+(2,1,2,2,200),
+(3,2,2,3,300);
+
+--Create Temporary Table for Revenue
+CREATE TABLE #RevenueTemp
+(
+    store_id INT,
+    order_id INT,
+    revenue DECIMAL(12,2)
+);
+
+--Cursor-Based Revenue Calculation
+BEGIN TRY
+
+BEGIN TRANSACTION
+
+DECLARE @order_id INT
+DECLARE @store_id INT
+DECLARE @revenue DECIMAL(12,2)
+
+-- Cursor declaration
+DECLARE order_cursor CURSOR FOR
+SELECT order_id, store_id
+FROM orders
+WHERE order_status = 4
+
+OPEN order_cursor
+
+FETCH NEXT FROM order_cursor INTO @order_id, @store_id
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+
+SELECT @revenue = SUM((p.price * oi.quantity) - ISNULL(oi.discount,0))
+FROM order_items oi
+JOIN products p
+ON oi.product_id = p.product_id
+WHERE oi.order_id = @order_id
+
+INSERT INTO #RevenueTemp
+VALUES (@store_id,@order_id,@revenue)
+
+FETCH NEXT FROM order_cursor INTO @order_id, @store_id
+
+END
+
+CLOSE order_cursor
+DEALLOCATE order_cursor
+
+COMMIT TRANSACTION
+
+END TRY
+
+BEGIN CATCH
+
+ROLLBACK TRANSACTION
+
+PRINT 'Error occurred during revenue calculation'
+
+END CATCH
+
+--Display Store-wise Revenue Summary
+SELECT 
+    store_id,
+    SUM(revenue) AS total_store_revenue
+FROM #RevenueTemp
+GROUP BY store_id;
