@@ -1,0 +1,91 @@
+--Level-2 Problem 2: Atomic Order Cancellation with SAVEPOINT
+--Assume Existing Tables
+
+--Orders Table
+USE AutoRetailDB;
+
+CREATE TABLE orders
+(
+    order_id INT PRIMARY KEY,
+    order_status INT
+);
+
+--Order_Items Table
+CREATE TABLE order_items
+(
+    order_item_id INT PRIMARY KEY,
+    order_id INT,
+    product_id INT,
+    quantity INT
+);
+
+--Stocks Table
+CREATE TABLE stocks
+(
+    product_id INT PRIMARY KEY,
+    quantity INT
+);
+
+--Sample Data
+INSERT INTO stocks VALUES
+(1,10),
+(2,20);
+
+INSERT INTO orders VALUES
+(101,4);
+
+INSERT INTO order_items VALUES
+(1,101,1,2),
+(2,101,2,3);
+
+--Transaction for Order Cancellation
+BEGIN TRY
+
+BEGIN TRANSACTION
+
+DECLARE @order_id INT = 101
+
+-- Savepoint before restoring stock
+SAVE TRANSACTION RestoreStockPoint
+
+-- Restore stock quantities
+UPDATE s
+SET s.quantity = s.quantity + oi.quantity
+FROM stocks s
+JOIN order_items oi
+ON s.product_id = oi.product_id
+WHERE oi.order_id = @order_id
+
+
+-- Check for invalid stock values
+IF EXISTS
+(
+    SELECT 1
+    FROM stocks
+    WHERE quantity < 0
+)
+BEGIN
+    THROW 50001,'Stock restoration failed.',1;
+END
+
+
+-- Update order status to Rejected (3)
+UPDATE orders
+SET order_status = 3
+WHERE order_id = @order_id
+
+
+COMMIT TRANSACTION
+
+PRINT 'Order cancelled successfully.'
+
+END TRY
+
+
+BEGIN CATCH
+
+ROLLBACK TRANSACTION RestoreStockPoint
+
+PRINT 'Error occurred during order cancellation.'
+
+END CATCH
