@@ -1,0 +1,51 @@
+using System;
+//Level-1 Problem 2: Student Grade Calculator
+class Student
+{
+    // Method to calculate average
+    public double CalculateAverage(int m1, int m2, int m3)
+    {
+        double avg = (m1 + m2 + m3) / 3.0;
+        return avg;
+    }
+
+    // Method to get grade
+    public string GetGrade(double avg)
+    {
+        if (avg >= 80)
+            return "A";
+
+        else if (avg >= 60)
+            return "B";
+
+        else if (avg >= 50)
+            return "C";
+        else
+            return "Fail";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Taking input
+        Console.Write("Enter three marks: ");
+        int m1 = int.Parse(Console.ReadLine());
+        int m2 = int.Parse(Console.ReadLine());
+        int m3 = int.Parse(Console.ReadLine());
+
+        // Creating object
+        Student s = new Student();
+
+        // Calling method
+        double average = s.CalculateAverage(m1, m2, m3);
+
+        // Getting grade
+        string grade = s.GetGrade(average);
+
+        // Display result
+        Console.WriteLine("Average = " + average);
+        Console.WriteLine("Grade = " + grade);
+    }
+}
