@@ -1,0 +1,103 @@
+using System;
+
+// Base Class
+class Vehicle {
+
+    // Private fields (Encapsulation)
+    private string brand;
+    private double rentalRatePerDay;
+
+    // Property for Brand
+    public string Brand {
+
+        get { 
+            return brand;
+        }
+        set { 
+            brand = value;
+        }
+    }
+
+    // Property for Rental Rate with validation
+    public double RentalRatePerDay { 
+    
+        get { 
+            return rentalRatePerDay;
+        }
+        set { 
+        
+            if (value >= 0)
+                rentalRatePerDay = value;
+            else
+                Console.WriteLine("Rental rate cannot be negative.");
+        }
+    }
+
+    // Virtual Method
+    public virtual double CalculateRental(int days) { 
+    
+        if (days <= 0)
+        {
+            Console.WriteLine("Invalid number of days.");
+            return 0;
+        }
+
+        return RentalRatePerDay * days;
+    }
+}
+
+// Derived Class: Car
+class Car : Vehicle {
+    public override double CalculateRental(int days) { 
+    
+        if (days <= 0)
+        {
+            Console.WriteLine("Invalid number of rental days.");
+            return 0;
+        }
+
+        double total = RentalRatePerDay * days;
+        total = total + 500; // Insurance charge
+
+        return total;
+    }
+}
+
+// Derived Class: Bike
+class Bike : Vehicle{
+
+    public override double CalculateRental(int days)
+    {
+        if (days <= 0)
+        {
+            Console.WriteLine("Invalid number of rental days.");
+            return 0;
+        }
+
+        double total = RentalRatePerDay * days;
+        double discount = total * 0.05; // 5% discount
+
+        return total - discount;
+    }
+}
+
+// Main Program
+class Program { 
+    static void Main() { 
+
+        // Runtime polymorphism
+        Vehicle v1 = new Car();
+        v1.Brand = "Toyota";
+        v1.RentalRatePerDay = 2000;
+
+        int days = 3;
+
+        Console.WriteLine("Car Total Rental = " + v1.CalculateRental(days));
+
+        Vehicle v2 = new Bike();
+        v2.Brand = "Yamaha";
+        v2.RentalRatePerDay = 800;
+
+        Console.WriteLine("Bike Total Rental = " + v2.CalculateRental(days));
+    }
+}
