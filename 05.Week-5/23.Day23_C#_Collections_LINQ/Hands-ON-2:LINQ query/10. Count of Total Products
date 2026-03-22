@@ -1,0 +1,1 @@
+int totalCount = products.Count();
