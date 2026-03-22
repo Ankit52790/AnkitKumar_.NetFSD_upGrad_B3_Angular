@@ -1,0 +1,48 @@
+//Problem 4:all folders inside a project directory to understand the project structure.
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+            // Take root directory path
+            Console.Write("Enter root directory path: ");
+            string path = Console.ReadLine();
+
+            //  Check if directory exists
+            if (!Directory.Exists(path))
+            {
+                Console.WriteLine("Invalid directory path!");
+                return;
+            }
+
+            //  Create DirectoryInfo object
+            DirectoryInfo rootDir = new DirectoryInfo(path);
+
+            // Get all subdirectories
+            DirectoryInfo[] directories = rootDir.GetDirectories();
+
+            Console.WriteLine("\n--- Folder Analysis ---\n");
+
+            // Loop through each directory
+            foreach (DirectoryInfo dir in directories)
+            {
+                // Get files inside each directory
+                FileInfo[] files = dir.GetFiles();
+
+                // Display details
+                Console.WriteLine("Folder Name: " + dir.Name);
+                Console.WriteLine("Number of Files: " + files.Length);
+                Console.WriteLine("-----------------------------");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle errors
+            Console.WriteLine("Error: " + ex.Message);
+        }
+    }
+}
