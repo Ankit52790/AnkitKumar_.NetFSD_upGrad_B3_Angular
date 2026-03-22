@@ -1,0 +1,1 @@
+bool allBelow30 = products.All(p => p.Mrp < 30);
