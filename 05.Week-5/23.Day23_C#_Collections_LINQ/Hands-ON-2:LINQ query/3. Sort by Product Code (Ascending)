@@ -1,0 +1,1 @@
+var result3 = products.OrderBy(p => p.ProductCode);
