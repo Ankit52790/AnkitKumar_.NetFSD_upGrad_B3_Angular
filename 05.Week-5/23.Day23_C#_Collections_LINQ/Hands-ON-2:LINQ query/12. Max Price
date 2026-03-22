@@ -1,0 +1,1 @@
+double maxPrice = products.Max(p => p.Mrp);
