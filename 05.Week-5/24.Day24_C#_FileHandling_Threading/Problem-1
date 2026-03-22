@@ -1,0 +1,38 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+            // Ask user for input
+            Console.Write("Enter your message: ");
+            string message = Console.ReadLine();
+
+            // Define file path
+            string filePath = "log.txt";
+
+            // Open FileStream in Append mode
+            FileStream fs = new FileStream(filePath, FileMode.Append, FileAccess.Write);
+
+            // Convert string to bytes
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(message + Environment.NewLine);
+
+            // Write data into file
+            fs.Write(data, 0, data.Length);
+
+
+            fs.Close();
+
+          
+            Console.WriteLine("Message written successfully!");
+        }
+        catch (Exception ex)
+        {
+            //Error handling
+            Console.WriteLine("Error: " + ex.Message);
+        }
+    }
+}
