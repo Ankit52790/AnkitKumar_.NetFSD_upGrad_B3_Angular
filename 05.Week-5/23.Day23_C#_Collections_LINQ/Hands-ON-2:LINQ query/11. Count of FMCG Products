@@ -1,0 +1,1 @@
+int fmcgCount = products.Count(p => p.Category == "FMCG");
