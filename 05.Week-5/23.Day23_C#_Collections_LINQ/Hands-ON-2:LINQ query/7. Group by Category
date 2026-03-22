@@ -1,0 +1,10 @@
+var result7 = products.GroupBy(p => p.Category);
+
+foreach (var group in result7)
+{
+    Console.WriteLine("Category: " + group.Key);
+    foreach (var p in group)
+    {
+        Console.WriteLine(p.ProductName);
+    }
+}
