@@ -1,0 +1,4 @@
+var result9 = products
+                .Where(p => p.Category == "FMCG")
+                .OrderByDescending(p => p.Mrp)
+                .FirstOrDefault();
