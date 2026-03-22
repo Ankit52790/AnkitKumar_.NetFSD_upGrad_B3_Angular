@@ -1,0 +1,1 @@
+var result2 = products.Where(p => p.Category == "Grain");
