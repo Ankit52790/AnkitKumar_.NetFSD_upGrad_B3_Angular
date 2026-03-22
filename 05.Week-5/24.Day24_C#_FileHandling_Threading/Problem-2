@@ -1,0 +1,52 @@
+// Problem 2: check file properties stored in a particular folder for auditing purposes.
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+           
+            Console.Write("Enter folder path: ");
+            string folderPath = Console.ReadLine();
+
+            // Check if directory exists
+            if (!Directory.Exists(folderPath))
+            {
+                Console.WriteLine("Invalid directory path!");
+                return;
+            }
+
+            //Get all files from directory
+            string[] files = Directory.GetFiles(folderPath);
+
+            int fileCount = 0;
+
+            Console.WriteLine("\nFile Details:\n");
+
+            // Loop through each file
+            foreach (string file in files)
+            {
+                FileInfo fileInfo = new FileInfo(file);
+
+                //Display file details
+                Console.WriteLine("File Name: " + fileInfo.Name);
+                Console.WriteLine("File Size: " + fileInfo.Length + " bytes");
+                Console.WriteLine("Created On: " + fileInfo.CreationTime);
+                Console.WriteLine("-----------------------------");
+
+                fileCount++;
+            }
+
+            // Display total file count
+            Console.WriteLine("\nTotal Files: " + fileCount);
+        }
+        catch (Exception ex)
+        {
+            // Handle errors
+            Console.WriteLine("Error: " + ex.Message);
+        }
+    }
+}
