@@ -1,0 +1,1 @@
+var result1 = products.Where(p => p.Category == "FMCG");
