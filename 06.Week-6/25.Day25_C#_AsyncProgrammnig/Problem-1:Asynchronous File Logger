@@ -1,0 +1,35 @@
+//Problem1:Asynchronous File Logger
+using System;
+using System.Threading.Tasks;
+
+namespace AsyncLogger
+{
+    class Program
+    {
+        // Asynchronous method to simulate writing logs
+        public static async Task WriteLogAsync(string message)
+        {
+            Console.WriteLine($"Start Writing: {message}");
+
+            // Simulate file writing delay
+            await Task.Delay(2000); // delay for 2 seconds
+
+            Console.WriteLine($"Finished Writing: {message}");
+        }
+
+        static async Task Main(string[] args)
+        {
+            Console.WriteLine("Logging Started...\n");
+
+            // Calling async method multiple times
+            Task log1 = WriteLogAsync("User Logged In");
+            Task log2 = WriteLogAsync("File Uploaded");
+            Task log3 = WriteLogAsync("Error Occurred");
+
+            // Wait for all tasks to complete
+            await Task.WhenAll(log1, log2, log3);
+
+            Console.WriteLine("\nAll logs written successfully");
+        }
+    }
+}
