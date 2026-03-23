@@ -1,0 +1,46 @@
+// Problem 4: Asynchronous Order Processing System
+
+using System;
+using System.Threading.Tasks;
+
+namespace OrderProcessingSystem
+{
+    class Program
+    {
+        // Step 1: Verify Payment
+        public static async Task VerifyPaymentAsync()
+        {
+            Console.WriteLine("Payment Verification Started...");
+            await Task.Delay(2000); // simulate delay
+            Console.WriteLine("Payment Verified Successfully!");
+        }
+
+        // Step 2: Check Inventory
+        public static async Task CheckInventoryAsync()
+        {
+            Console.WriteLine("Inventory Check Started...");
+            await Task.Delay(3000);
+            Console.WriteLine("Inventory Available!");
+        }
+
+        // Step 3: Confirm Order
+        public static async Task ConfirmOrderAsync()
+        {
+            Console.WriteLine("Order Confirmation Started...");
+            await Task.Delay(1500);
+            Console.WriteLine("Order Confirmed!");
+        }
+
+        static async Task Main(string[] args)
+        {
+            Console.WriteLine("Order Processing Started...\n");
+
+            // Maintain logical order using await
+            await VerifyPaymentAsync();
+            await CheckInventoryAsync();
+            await ConfirmOrderAsync();
+
+            Console.WriteLine("\nOrder Process Completed Successfully!");
+        }
+    }
+}
