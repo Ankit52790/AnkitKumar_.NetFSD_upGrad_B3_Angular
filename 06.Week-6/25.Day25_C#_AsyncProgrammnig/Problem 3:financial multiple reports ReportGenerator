@@ -1,0 +1,50 @@
+
+//Problem 3:financial multiple reports ReportGenerator
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace ReportGenerator
+{
+    class Program
+    {
+        // sales Report
+        static void GenerateSalesReport()
+        {
+            Console.WriteLine("Sales Report Started. . . ");
+            Thread.Sleep(3000);
+            Console.WriteLine("Sales Report Completed.");
+        }
+
+        // Inventory Report
+        static void GenerateInventoryyReport()
+        {
+            Console.WriteLine("Inventory Report Started. . . ");
+            Thread.Sleep(2000);
+            Console.WriteLine("Inventiry Report Completed.");
+        }
+
+        // Customer Report
+        static void CustomerReport()
+        {
+            Console.WriteLine("Customer Report Started. . . ");
+            Thread.Sleep(2500);
+            Console.WriteLine("Customer Report Completed.");
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Report Creation Started....\n");
+
+            //Runs tasks in parallel
+            Task salesTask = Task.Run(() => GenerateSalesReport());
+            Task inventryTask = Task.Run(() => GenerateInventoryyReport());
+            Task customerTask = Task.Run(() => CustomerReport());
+
+            // wait for all tasks to complete
+            Task.WaitAll(salesTask, inventryTask, customerTask);
+
+            Console.WriteLine("\nAll Reports Generated Successfully.");
+        }
+    }
+}
