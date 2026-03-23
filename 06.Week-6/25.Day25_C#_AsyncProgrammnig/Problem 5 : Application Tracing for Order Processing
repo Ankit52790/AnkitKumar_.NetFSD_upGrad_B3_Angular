@@ -1,0 +1,67 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+
+namespace OrderTracingApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Configure trace listener (log file)
+            Trace.Listeners.Clear();
+            Trace.Listeners.Add(new TextWriterTraceListener("order_log.txt"));
+            Trace.AutoFlush = true;
+
+            Console.WriteLine("Order Processing Started...\n");
+
+            try
+            {
+                ValidateOrder();
+                ProcessPayment();
+                UpdateInventory();
+                GenerateInvoice();
+
+                Trace.TraceInformation("Order processed successfully!");
+                Console.WriteLine("Order Completed Successfully!");
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine("ERROR: " + ex.Message);
+                Console.WriteLine("Order Failed!");
+            }
+
+            Console.WriteLine("\nCheck log file: order_log.txt");
+        }
+
+        static void ValidateOrder()
+        {
+            Trace.WriteLine("Step 1: Validating Order...");
+            Console.WriteLine("Validating Order...");
+
+            // Simulate success
+            // throw new Exception("Invalid Order Data"); // Uncomment to test failure
+        }
+
+        static void ProcessPayment()
+        {
+            Trace.WriteLine("Step 2: Processing Payment...");
+            Console.WriteLine("Processing Payment...");
+
+            // Simulate failure (for testing)
+            // throw new Exception("Payment Failed!");
+        }
+
+        static void UpdateInventory()
+        {
+            Trace.WriteLine("Step 3: Updating Inventory...");
+            Console.WriteLine("Updating Inventory...");
+        }
+
+        static void GenerateInvoice()
+        {
+            Trace.WriteLine("Step 4: Generating Invoice...");
+            Console.WriteLine("Generating Invoice...");
+        }
+    }
+}
