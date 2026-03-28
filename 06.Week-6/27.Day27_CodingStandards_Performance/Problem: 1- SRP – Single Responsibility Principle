@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+
+// 1. Model Class
+public class Student
+{
+    public int StudentId { get; set; }
+    public string StudentName { get; set; }
+    public double Marks { get; set; }
+}
+
+// 2. Repository Class (Only Data Handling)
+public class StudentRepository
+{
+    private List<Student> students = new List<Student>();
+
+    public void AddStudent(Student student)
+    {
+        students.Add(student);
+    }
+
+    public List<Student> GetAllStudents()
+    {
+        return students;
+    }
+}
+
+// 3. Report Generator (Only Reporting)
+public class ReportGenerator
+{
+    public void GenerateReport(List<Student> students)
+    {
+        Console.WriteLine("---- Student Report ----");
+
+        foreach (var s in students)
+        {
+            Console.WriteLine($"ID: {s.StudentId}, Name: {s.StudentName}, Marks: {s.Marks}");
+        }
+    }
+}
+
+// Main
+class Program
+{
+    static void Main()
+    {
+        StudentRepository repo = new StudentRepository();
+
+        repo.AddStudent(new Student { StudentId = 1, StudentName = "Ankit", Marks = 85 });
+        repo.AddStudent(new Student { StudentId = 2, StudentName = "Rahul", Marks = 90 });
+
+        ReportGenerator report = new ReportGenerator();
+        report.GenerateReport(repo.GetAllStudents());
+    }
+}
