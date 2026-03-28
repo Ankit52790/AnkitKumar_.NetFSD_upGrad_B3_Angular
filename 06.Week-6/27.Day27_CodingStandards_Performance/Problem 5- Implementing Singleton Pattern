@@ -1,0 +1,40 @@
+using System;
+
+public class ConfigurationManager
+{
+    private static ConfigurationManager instance;
+
+    // Private Constructor
+    private ConfigurationManager()
+    {
+        ApplicationName = "Inventory System";
+        Version = "1.0";
+        DatabaseConnectionString = "Server=.;Database=TestDB;";
+    }
+
+    public string ApplicationName { get; set; }
+    public string Version { get; set; }
+    public string DatabaseConnectionString { get; set; }
+
+    public static ConfigurationManager GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = new ConfigurationManager();
+        }
+        return instance;
+    }
+}
+
+// Main
+class Program
+{
+    static void Main()
+    {
+        var config1 = ConfigurationManager.GetInstance();
+        var config2 = ConfigurationManager.GetInstance();
+
+        Console.WriteLine(config1.ApplicationName);
+        Console.WriteLine(object.ReferenceEquals(config1, config2)); // True
+    }
+}
