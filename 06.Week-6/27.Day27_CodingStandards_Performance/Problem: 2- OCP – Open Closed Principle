@@ -1,0 +1,45 @@
+using System;
+
+// Strategy Interface
+public interface IDiscountStrategy
+{
+    double CalculateDiscount(double amount);
+}
+
+// Concrete Classes
+public class RegularCustomerDiscount : IDiscountStrategy
+{
+    public double CalculateDiscount(double amount) => amount * 0.05;
+}
+
+public class PremiumCustomerDiscount : IDiscountStrategy
+{
+    public double CalculateDiscount(double amount) => amount * 0.10;
+}
+
+public class VipCustomerDiscount : IDiscountStrategy
+{
+    public double CalculateDiscount(double amount) => amount * 0.20;
+}
+
+// Context Class
+public class DiscountCalculator
+{
+    public double GetFinalPrice(double amount, IDiscountStrategy strategy)
+    {
+        return amount - strategy.CalculateDiscount(amount);
+    }
+}
+
+// Main
+class Program
+{
+    static void Main()
+    {
+        DiscountCalculator calc = new DiscountCalculator();
+
+        double final = calc.GetFinalPrice(1000, new VipCustomerDiscount());
+
+        Console.WriteLine("Final Price: " + final);
+    }
+}
