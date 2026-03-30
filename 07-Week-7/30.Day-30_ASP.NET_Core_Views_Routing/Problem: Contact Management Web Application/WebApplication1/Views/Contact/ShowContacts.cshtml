@@ -1,0 +1,54 @@
+@model List<WebApplication1.Models.ContactInfo>
+
+<h2 class="text-center mt-3">Contact List</h2>
+
+<div class="d-flex justify-content-between mb-3">
+    <form asp-action="GetContactById" method="get" class="d-flex">
+        <input type="number" name="id" class="form-control me-2" placeholder="Enter Contact ID" required />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <a asp-action="AddContact" class="btn btn-success">+ Add New Contact</a>
+</div>
+
+<table class="table table-bordered table-striped text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Designation</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model.Count == 0)
+        {
+            <tr>
+                <td colspan="7">No contacts found</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ContactId</td>
+                    <td>@item.FirstName @item.LastName</td>
+                    <td>@item.CompanyName</td>
+                    <td>@item.EmailId</td>
+                    <td>@item.MobileNo</td>
+                    <td>@item.Designation</td>
+                    <td>
+                        <a asp-action="GetContactById" asp-route-id="@item.ContactId" class="btn btn-info btn-sm">View</a>
+                        <a asp-action="EditContact" asp-route-id="@item.ContactId" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="DeleteContact" asp-route-id="@item.ContactId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
