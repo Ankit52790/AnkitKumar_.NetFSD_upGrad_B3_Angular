@@ -1,0 +1,46 @@
+@model Product
+
+<h2>Create Product</h2>
+<hr/>
+
+<form method="post" asp-action="Create" asp-controller="Product">
+
+    <div class="form-group">
+        <label asp-for="ProductId" class="form-label"></label>
+        <input asp-for="ProductId" class="form-control"/>
+        <span asp-validation-for="ProductId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductName" class="form-lable"></label>
+        <input asp-for="ProductName" class="form-control"/>
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category"></label>
+        <input asp-for="Category" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Stock"></label>
+        <input asp-for="Stock" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Add Product</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+
+</form>
+
+<p class="text-danger">@ViewBag.ErrorMessage</p>
+
+@section Scripts {
+    <!-- The following line include jQuery validation + Unobtrusive scripts to perform validations -->
+    <partial name="_ValidationScriptsPartial" />
+}
