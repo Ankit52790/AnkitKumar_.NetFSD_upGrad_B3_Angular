@@ -1,0 +1,19 @@
+@model WebApplication1.Models.ContactInfo
+
+<h2>Contact Details</h2>
+
+@if (Model == null)
+{
+    <p class="text-danger">@ViewBag.Message</p>
+}
+else
+{
+    <p><b>ID:</b> @Model.ContactId</p>
+    <p><b>Name:</b> @Model.FirstName @Model.LastName</p>
+    <p><b>Company:</b> @Model.CompanyName</p>
+    <p><b>Email:</b> @Model.EmailId</p>
+    <p><b>Mobile:</b> @Model.MobileNo</p>
+    <p><b>Designation:</b> @Model.Designation</p>
+}
+
+<a asp-action="ShowContacts">Back</a>
