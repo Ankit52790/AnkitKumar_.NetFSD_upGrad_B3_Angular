@@ -1,0 +1,34 @@
+@model MovieCatalogApp.Models.Movie
+
+<h2 class="mb-4">Movie Details</h2>
+
+<div class="card shadow" style="width: 30rem;">
+    <div class="card-body">
+
+        <h4 class="card-title">@Model.Title</h4>
+        <hr />
+
+        <p><strong>Genre:</strong> @Model.Genre</p>
+
+        <p>
+            <strong>Release Date:</strong>
+            @Model.ReleaseDate.ToString("dd MMM yyyy")
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            Rs.@Model.Price
+        </p>
+
+        <p>
+            <strong>Rating:</strong>
+            <span class="badge bg-success">@Model.Rating</span>
+        </p>
+
+        <hr />
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+    </div>
+</div>
