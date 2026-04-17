@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "ContactManagement.DAL\\ContactManagement.DAL.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ContactManagement.API\\ContactManagement.API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
