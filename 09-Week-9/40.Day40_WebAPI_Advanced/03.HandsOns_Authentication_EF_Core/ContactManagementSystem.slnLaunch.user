@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "ContactManagement.DAL\\ContactManagement.DAL.csproj",
+        "Action": "Start",
+        "DebugTarget": "ContactManagement.DAL"
+      },
+      {
+        "Path": "ContactManagement.API\\ContactManagement.API.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]
