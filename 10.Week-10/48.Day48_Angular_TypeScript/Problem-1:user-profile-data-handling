@@ -1,0 +1,27 @@
+// 1. Variable Declaration (Explicit Types)
+const userName: string = "Ankit";
+let age: number = 22;
+const email: string = "ankit@example.com";
+const isSubscribed: boolean = true;
+
+// 2. Type Inference
+let city = "Kanpur";      // inferred as string
+let isActive = true;      // inferred as boolean
+
+// 3. let / const usage
+age = age + 1; // allowed (let)
+
+// 4. Template Literals
+const userProfile: string = `Hello ${userName}, you are ${age} years old and your email is ${email}.`;
+
+// 5. Operators
+const updatedAge: number = age + 1;
+
+const isEligibleForPremium: boolean = (age > 18) && isSubscribed;
+
+// 6. Output
+console.log("User Profile:", userProfile);
+console.log("City:", city);
+console.log("Is Active:", isActive);
+console.log("Updated Age:", updatedAge);
+console.log("Eligible for Premium:", isEligibleForPremium);
