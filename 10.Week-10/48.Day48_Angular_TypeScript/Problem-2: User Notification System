@@ -1,0 +1,49 @@
+// 1. Required Parameter Function
+function getWelcomeMessage(name: string): string {
+    return `Welcome, ${name}!`;
+}
+
+// 2. Optional Parameter Function
+function getUserInfo(name: string, age?: number): string {
+    if (age !== undefined) {
+        return `User: ${name}, Age: ${age}`;
+    }
+    return `User: ${name}`;
+}
+
+// 3. Default Parameter Function
+function getSubscriptionStatus(name: string, isSubscribed: boolean = false): string {
+    return isSubscribed 
+        ? `${name} is subscribed.` 
+        : `${name} is not subscribed.`;
+}
+
+// Renamed function (to avoid conflict)
+function checkPremiumEligibility(age: number): boolean {
+    return age > 18;
+}
+
+// 5. Arrow Function
+const getAccountStatus = (name: string): string => {
+    return `Account status for ${name} is active.`;
+};
+
+// 6. Lexical this Example
+const notificationService = {
+    appName: "MyApp",
+
+    sendNotification: (message: string): void => {
+        console.log(`[${notificationService.appName}] ${message}`);
+    }
+};
+
+// 7. Execution
+console.log(getWelcomeMessage("Ankit"));
+console.log(getUserInfo("Ankit", 22));
+console.log(getUserInfo("Rahul"));
+console.log(getSubscriptionStatus("Ankit", true));
+console.log(getSubscriptionStatus("Rahul"));
+console.log("Eligible:", checkPremiumEligibility(22));
+console.log(getAccountStatus("Ankit"));
+
+notificationService.sendNotification("Welcome to the application!");
