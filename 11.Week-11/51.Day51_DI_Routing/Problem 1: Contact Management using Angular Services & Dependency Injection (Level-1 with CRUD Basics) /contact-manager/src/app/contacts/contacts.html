@@ -1,0 +1,48 @@
+<h2>Contact Management</h2>
+
+<!-- TWO WAY BINDING -->
+<input type="text"
+       [(ngModel)]="searchText"
+       placeholder="Search by name or email..." />
+<br><br>
+
+<table border="1" width="100%">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Status</th>
+    <th>Grade</th>
+    <th>Action</th>
+  </tr>
+
+  <!-- PIPE + FILTER -->
+  <tr *ngFor="let contact of contacts | searchFilter: searchText | slice:0:5">
+
+    <!-- INTERPOLATION -->
+    <td>{{ contact.name | titlecase }}</td>
+
+    <!-- PIPE -->
+    <td>{{ contact.email | lowercase }}</td>
+
+    <!-- CUSTOM PIPE -->
+    <td>{{ contact.phone | phoneFormat }}</td>
+
+    <!-- CUSTOM PIPE Of Stutus -->
+    <td>
+      <span [ngClass]="contact.status ? 'active' : 'inactive'">
+        {{ contact.status | status }}
+      </span>
+    </td>
+    <!--Custome Pipe for Grade-->
+    <td>{{ contact.grade | grade }}</td>
+
+
+    <!-- EVENT BINDING -->
+    <td>
+      <button (click)="toggleStatus(contact)">
+        Toggle Status
+      </button>
+    </td>
+  </tr>
+</table>
