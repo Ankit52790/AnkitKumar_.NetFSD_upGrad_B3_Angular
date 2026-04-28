@@ -1,0 +1,12 @@
+body {
+  background: linear-gradient(to right, #eef2f3, #ffffff);
+}
+
+.table th {
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.badge {
+  font-size: 0.8rem;
+}
