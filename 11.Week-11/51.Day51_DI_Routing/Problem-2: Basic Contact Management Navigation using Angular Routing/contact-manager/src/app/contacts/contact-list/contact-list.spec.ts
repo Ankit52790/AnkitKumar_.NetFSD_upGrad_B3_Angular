@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ContactListComponent } from './contact-list';
+
+describe('ContactList', () => {
+  let component: ContactListComponent;
+  let fixture: ComponentFixture<ContactListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ContactListComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ContactListComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

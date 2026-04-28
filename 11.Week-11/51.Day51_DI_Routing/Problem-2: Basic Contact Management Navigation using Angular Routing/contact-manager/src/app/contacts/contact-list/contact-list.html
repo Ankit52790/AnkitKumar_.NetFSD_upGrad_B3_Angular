@@ -1,0 +1,99 @@
+<div class="container mt-4">
+
+  <!-- Header -->
+  <h2 class="text-center mb-4">Contact List</h2>
+
+  <!-- Top Bar -->
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3 gap-2">
+    
+    <span class="fw-bold fs-5">All Contacts</span>
+
+    <!-- Search -->
+    <input 
+      type="text"
+      class="form-control w-auto"
+      placeholder="Search..."
+      [(ngModel)]="searchText"
+      style="min-width: 200px;">
+
+    <!-- Add Button -->
+    <a routerLink="/add-contact" class="btn btn-primary">
+       Add Contact
+    </a>
+
+  </div>
+
+  <!-- Card -->
+  <div class="card shadow-sm border-0 rounded-4">
+
+    <div class="card-body p-0">
+
+      <!-- TABLE -->
+      <table class="table table-hover align-middle mb-0">
+
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <!-- DATA -->
+          <tr *ngFor="let c of contacts | searchFilter: searchText; let i = index">
+
+            <td>{{ i + 1 }}</td>
+
+            <td>
+              <span class="fw-semibold">{{ c.name }}</span>
+            </td>
+
+            <td class="text-muted">
+              {{ c.email }}
+            </td>
+
+            <td>
+              <!-- View BUTTON -->
+              <a 
+                [routerLink]="['/contact', c.id]" 
+                class="btn btn-sm btn-info text-white me-2">
+                View
+              </a>
+
+              <!-- EDIT BUTTON -->
+               <a 
+               [routerLink]="['/edit-contact', c.id]" 
+               class="btn btn-sm btn-warning me-2">
+               Edit
+              </a>
+
+              <!-- DELETE BUTTON -->
+              <button 
+                class="btn btn-sm btn-danger"
+                (click)="deleteContact(c.id)">
+                Delete
+              </button>
+
+            </td>
+
+          </tr>
+
+          <!-- EMPTY STATE -->
+          <tr *ngIf="contacts.length === 0">
+            <td colspan="4" class="text-center py-4 text-muted">
+              No contacts available
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

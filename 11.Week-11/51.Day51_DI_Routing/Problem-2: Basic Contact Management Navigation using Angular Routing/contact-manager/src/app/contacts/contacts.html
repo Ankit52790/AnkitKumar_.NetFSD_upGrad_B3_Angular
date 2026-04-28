@@ -1,0 +1,107 @@
+<div class="container mt-5">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Contact Management</h2>
+
+    <a routerLink="/add-contact" class="btn btn-primary">
+      Add Contact
+    </a>
+  </div>
+
+  <!-- Search -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchText"
+        placeholder="🔍 Search by name or email..." />
+
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card shadow-lg border-0 rounded-4">
+
+    <div class="table-responsive">
+
+      <table class="table table-hover align-middle mb-0">
+
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Grade</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let contact of contacts | searchFilter: searchText | slice:0:5">
+
+            <!-- Name -->
+            <td class="fw-semibold">
+              {{ contact.name | titlecase }}
+            </td>
+
+            <!-- Email -->
+            <td>
+              {{ contact.email | lowercase }}
+            </td>
+
+            <!-- Phone -->
+            <td>
+              {{ contact.phone | phoneFormat }}
+            </td>
+
+            <!-- Status -->
+            <td>
+              <span 
+                class="badge"
+                [ngClass]="contact.status ? 'bg-success' : 'bg-danger'">
+                
+                {{ contact.status | status }}
+
+              </span>
+            </td>
+
+            <!-- Grade -->
+            <td>
+              <span class="badge bg-info text-dark">
+                {{ contact.grade | grade }}
+              </span>
+            </td>
+
+            <!-- Actions -->
+            <td class="text-center">
+
+              <button 
+                class="btn btn-sm btn-outline-primary me-2"
+                [routerLink]="['/contact', contact.id]">
+                View
+              </button>
+
+              <button 
+                class="btn btn-sm btn-outline-warning"
+                (click)="toggleStatus(contact)">
+                Toggle
+              </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
