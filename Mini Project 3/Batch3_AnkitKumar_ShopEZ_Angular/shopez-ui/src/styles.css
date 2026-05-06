@@ -1,0 +1,194 @@
+/* BODY */
+body{
+background:#f5f6fa;
+font-family:Arial, sans-serif;
+}
+
+/* CONTAINER */
+.container{
+max-width:1200px;
+}
+
+
+
+/* HERO BANNER */
+
+/* HERO BANNER */
+.carousel img {
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  object-position: center top; /* focus top of image */
+}
+.banner{
+height:400px;
+}
+
+/* Object-fit CSS*/
+.banner img{
+width:100%;
+height:400px;
+object-fit:cover;
+}
+.hero-img{
+height:420px;
+object-fit:cover;
+object-position:center;
+}
+
+
+/* PRODUCT CARDS */
+.product-card{
+border:none;
+border-radius:12px;
+transition:0.3s;
+box-shadow:0 3px 12px rgba(0,0,0,0.1);
+background:white;
+}
+
+.product-card:hover{
+transform:translateY(-6px);
+box-shadow:0 8px 25px rgba(0,0,0,0.2);
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+/* CARD IMAGE */
+.card-img-top{
+height:200px;
+object-fit:contain;
+padding:15px;
+background:white;
+transition:0.3s;
+}
+
+.card-img-top:hover{
+transform:scale(1.05);
+}
+
+/* NAVBAR */
+.navbar-brand{
+font-size:24px;
+font-weight:bold;
+}
+
+/* HEADINGS */
+h2{
+font-weight:600;
+}
+
+/* FOOTER */
+footer{
+background:#212121;
+color:white;
+padding:25px;
+text-align:center;
+margin-top:60px;
+}
+
+/*Button hover effect*/
+.btn-warning:hover{
+background:#ff9900;
+border-color:#ff9900;
+}
+
+/* SALE badge styling */
+.badge{
+font-size:12px;
+padding:5px 8px;
+}
+
+/* Smooth page feel */
+*{
+scroll-behavior:smooth;
+}
+
+.table th{
+background:#f8f9fa;
+}
+
+.btn-sm{
+padding:3px 8px;
+}
+
+h3{
+font-weight:600;
+}
+
+/* Checkout Page */
+.card{
+border-radius:12px;
+transition:0.3s;
+}
+
+#orderSummary div{
+font-size:15px;
+}
+
+/* Shows loading effect */
+.loader{
+text-align:center;
+padding:20px;
+font-weight:bold;
+color:#555;
+}
+
+.btn{
+border-radius:8px;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+}
+
+/* Button & Input UI Upgrade */
+input, textarea{
+border-radius:8px;
+}
+
+/* Cart Badge Animation */
+#cartCount{
+animation: pop 0.3s ease;
+}
+
+@keyframes pop{
+0%{transform:scale(1);}
+50%{transform:scale(1.3);}
+100%{transform:scale(1);}
+}
+
+.text-success{
+font-weight:700;
+}
+
+.card{
+border-radius:12px;
+}
+
+input:focus{
+border-color:#ff9900;
+box-shadow:0 0 5px rgba(255,153,0,0.5);
+}
+
+.form-check{
+margin-bottom:10px;
+}
+
+/* Hero section in index.html */
+.hero{
+margin-top:0;
+}
+
+/*success animation (payment.html)  */
+@keyframes popSuccess {
+0% { transform: scale(0.8); opacity: 0; }
+100% { transform: scale(1); opacity: 1; }
+}
+
+.card {
+animation: popSuccess 0.5s ease;
+}
+
